@@ -1,0 +1,10 @@
+h1 {
+    color: green;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+    gap: 1rem;
+    background: #000;
+}

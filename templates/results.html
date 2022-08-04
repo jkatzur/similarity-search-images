@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Search for Image</title>
+    </head>
+    <body>
+        <form method="post">
+            <input type="text" name="query"/>
+            <input type="submit">
+        </form>
+        <p>{{query}}</p>
+        {% for image_row in images | batch(3, '&nbsp;')%}
+        <div class="row">
+            {% for image in image_row %}
+                <img src="{{image}}" width=341 height=256 title="{{image}}"/>
+            {% endfor %}
+            <br/>
+            <br/>
+            <br/>
+        </div>
+        {% endfor %}
+    </body>
+</html>

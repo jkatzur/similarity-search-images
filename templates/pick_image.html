@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Pick Image to Use as Baseline</title>
+    </head>
+    <body>
+        <h2>Search by picking an image</h2>
+        {% for image_row in images | batch(3, '&nbsp;')%}
+        <div class="row">
+            {% for image in image_row %}
+            <a href="/similarity-query?query_doc={{image}}">
+                <img src="{{image}}" width=341 height=256 title="{{image}}"/>
+            </a>
+            {% endfor %}
+            <br/>
+            <br/>
+            <br/>
+        </div>
+        {% endfor %}
+    </body>
+</html>
