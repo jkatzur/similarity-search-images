@@ -44,8 +44,8 @@ async def search_form(request: Request):
 
 @app.get("/similarity-query")
 def similarity_search(request: Request, query_doc: str):
-    query_doc = Document(uri=query_doc)
-    query_doc = preproc(query_doc)
+    query_doc = Document(uri=query_doc) # You can retrieve this from Weaviate
+    query_doc = preproc(query_doc)      # Use the Weaviate Python Client in the future to avoid this
     query_doc.embed(state['model'])
     top6 = state['docs'].find(query_doc, limit=6)
     return templates.TemplateResponse("results.html", {"request": request, "query": query_doc.uri, "images": [doc.uri for doc in top6[0]]})
@@ -57,7 +57,7 @@ def get_doc_count():
 @app.on_event("startup")
 def get_state():
     state['docs'] = DocumentArray(storage='weaviate', config={'host': 'localhost', 'port': 8080, 'name': 'Image4'})
-    state['model'] = torchvision.models.resnet50(pretrained=True)
+    state['model'] = torchvision.models.resnet50(pretrained=True)       # We should switch this over to clip and use the Weaviate version
 
 
 if __name__ == "__main__":
